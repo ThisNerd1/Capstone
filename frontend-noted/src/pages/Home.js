@@ -3,7 +3,7 @@ const Home = () => {
         <>
         <div>
         <h4>Create Account</h4>
-        <form>
+        <form id="createAcc" method="POST" action="http://localhost:3001/register">
             <label>First Name: </label><input placeholder="first name"></input><br></br>
             <label>Last Name: </label><input placeholder="last name"></input><br></br>
             <label>Username: </label><input placeholder="username"></input><br></br>

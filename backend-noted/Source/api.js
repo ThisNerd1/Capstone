@@ -13,7 +13,7 @@ app.use(cookieParser());
 //    saveUninitialized: true,
 //    resave: true
 //}));
-
+app.set('views', path.join("../../frontend-noted/src/", 'pages')); 
 let urlendcodedParser  = express.urlencoded({extended: false});
 
 //const checkAuth = (req, res, next) => {
@@ -35,9 +35,14 @@ let urlendcodedParser  = express.urlencoded({extended: false});
 //    })
 //})
 
-app.get('/login', (req, res) => {
-    res.render('login');
+app.post('/register', (req, res) => {
+    console.log("hit endpoint");
+    res.redirect('http://localhost:3000/login');
 });
+// app.get('/register', (req, res) => {
+//     console.log("hit endpoint");
+//     res.redirect('http://localhost:3000/login');
+// });
 
 
 
@@ -47,7 +52,7 @@ app.get('/login', (req, res) => {
 //app.post('/create', urlendcodedParser, routes.createAccount);
 //app.get('/edit', routes.edit)
 //app.post('/edit', urlendcodedParser, routes.editAccount);
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log("I hear ya man.")
 });
 
