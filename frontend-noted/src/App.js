@@ -2,7 +2,8 @@ import './App.css';
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from './pages/Home';
-import Lists from './pages/Lists';
+import GiftLists from './pages/GiftLists';
+import AccountPage from './pages/AccountPage';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/gifts" element={<Lists />} />
+        <Route path="/gifts" element={<GiftLists />} />
+        <Route path="/account-page" element={<AccountPage />} />
       </Routes>
     </div>
     </div>
