@@ -27,10 +27,7 @@ let UserSchema = mongoose.Schema({
 
 let Account = mongoose.model('Users', UserSchema, "Users");
 
-exports.create = (req, res) => {
-    res.redirect("http://localhost:3000/createAcc")
-}
-
+//adds users to database
 exports.createAccount = (req, res, next) => {
     try{
         let profile = new Account({
@@ -40,15 +37,16 @@ exports.createAccount = (req, res, next) => {
             username: req.body.username.username,
             password: req.body.password.password
         });
+        profile.password = bcrypt.hashSync(profile.password, salt);
         profile.save()
         console.log(profile);
         res.status(200).send("We got your message!")
     }catch{
         res.status(500).send("I'm sorry, we're experiencing difficulties!")
     }
-    //res.redirect()
 }
 
+//checks to see if username already exsists, if it does throws an 400 error
 exports.checkUsername = (req, res, next) => {
     try{
         const inputUser = {username: req.body.username.username}
@@ -57,12 +55,13 @@ exports.checkUsername = (req, res, next) => {
                 next();
             })
     }catch{
-        res.status(400).send("I'm sorry, that username already exsists. Please use a different one");
+        res.status(400).send("I'm sorry, that username already exsists. Please use a different one.");
     }
 }
 
+//logs users in
 exports.login = (req,res) => {
-    const inputUser = {username: req.body.username}
+    const inputUser = {username: req.body.username.username}
     Account.find(inputUser, (err,user) => {
         if(err) return console.error(err);
         console.log(inputUser);
@@ -75,18 +74,10 @@ exports.login = (req,res) => {
                 isAuthenticated: true,
                 username: req.body.username
             }
-            //avatarLink = user[0].avatarLink
-            //console.log(avatarLink)
-            res.redirect('/home');
+            res.redirect('/account');
         }
         else{
-            res.redirect('/gifts');
+            res.redirect('/');
         }
     })
 }
-
-//profiles.password = bcrypt.hashSync(profiles.password, salt);
-// profiles.save((err, profiles) => {
-//     if(err) return console.error(err);
-//     console.log(req.body.username);
-// });
