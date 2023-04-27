@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect("mongodb+srv://newUser:newUser@cluster0.46qhw.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://newUser:newUser@cluster0.46qhw.mongodb.net/NotedDB?retryWrites=true&w=majority", {
     useUnifiedTopology: true, 
     useNewUrlParser: true
 });
@@ -21,9 +21,45 @@ let UserSchema = mongoose.Schema({
     username: String,
     password: String,
     email: String,
+}, {
+    collection: 'Users'
 }); 
 
-let Account = mongoose.model('Users', UserSchema);
+let Account = mongoose.model('Users', UserSchema, "Users");
+
+exports.create = (req, res) => {
+    res.redirect("http://localhost:3000/createAcc")
+}
+
+exports.createAccount = (req, res, next) => {
+    try{
+        let profile = new Account({
+            first_name: req.body.fname.fname,
+            last_name: req.body.lname.lname,
+            email: req.body.email.email,
+            username: req.body.username.username,
+            password: req.body.password.password
+        });
+        profile.save()
+        console.log(profile);
+        res.status(200).send("We got your message!")
+    }catch{
+        res.status(500).send("I'm sorry, we're experiencing difficulties!")
+    }
+    //res.redirect()
+}
+
+exports.checkUsername = (req, res, next) => {
+    try{
+        const inputUser = {username: req.body.username.username}
+            Account.find(inputUser, (err,user) => {
+                if(err) throw console.error(err);
+                next();
+            })
+    }catch{
+        res.status(400).send("I'm sorry, that username already exsists. Please use a different one");
+    }
+}
 
 exports.login = (req,res) => {
     const inputUser = {username: req.body.username}
@@ -47,22 +83,6 @@ exports.login = (req,res) => {
             res.redirect('/gifts');
         }
     })
-}
-
-exports.createAccount = (req, res) => {
-    let profiles = new Account({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email
-    });
-    console.log(profiles);
-    res.redirect('/');
-}
-
-exports.create = (req, res) => {
-    res.redirect("http://localhost:3000/createAcc")
 }
 
 //profiles.password = bcrypt.hashSync(profiles.password, salt);

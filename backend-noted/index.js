@@ -35,10 +35,15 @@ app.get('/', (req, res) => {
 
 app.get('/create', routes.create);
 app.post('/create', urlendcodedParser,(req, res, next)=>{
-    console.log("hit create endpoint!")
-    res.redirect("https://localhost:3000/createAcc")
+    //console.log("hit create post endpoint!")
+    //console.log("New user created!");
+    console.log("First Name: ", req.body.fname);
+    console.log("Last Name: ", req.body.lname);
+    console.log("Email: ", req.body.email);
+    console.log("Username: ", req.body.username);
+    console.log("Password: ", req.body.password);
     next()
-});
+}, routes.checkUsername, routes.createAccount);
 app.post('/', urlendcodedParser, routes.createAccount);
 
 
