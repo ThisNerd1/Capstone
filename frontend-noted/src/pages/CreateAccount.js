@@ -1,8 +1,8 @@
 import Styles from '../Styles/CreateAccount.css';
 import React, {useState} from 'react';
 import axios from 'axios';
-import { render } from 'react-dom';
-import { redirect } from 'react-router-dom';
+//import { render } from 'react-dom';
+//import { redirect } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const CreateAccount = () => {

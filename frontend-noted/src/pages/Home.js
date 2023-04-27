@@ -18,7 +18,7 @@ const Home = () => {
             pic, model
           </div>
           <div id='buttons'>
-            <button onClick={() => {navigate("/login")}}>Sign-up</button>
+            <button onClick={() => {navigate("/login")}}>Sign-ip</button>
             <button onClick={() => {navigate("/createAcc")}}>Create Account</button>
           </div>
         </div>

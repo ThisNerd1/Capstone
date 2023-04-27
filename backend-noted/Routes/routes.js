@@ -26,58 +26,71 @@ let UserSchema = mongoose.Schema({
 }); 
 
 let Account = mongoose.model('Users', UserSchema, "Users");
+let salt = bcrypt.genSaltSync(10);
+let currentUser = '';
 
 //adds users to database
-exports.createAccount = (req, res, next) => {
+exports.createAccount = async (req, res, next) => {
     try{
+        let password = bcrypt.hashSync(req.body.password.password, salt);
         let profile = new Account({
             first_name: req.body.fname.fname,
             last_name: req.body.lname.lname,
             email: req.body.email.email,
             username: req.body.username.username,
-            password: req.body.password.password
+            password: password
         });
-        profile.password = bcrypt.hashSync(profile.password, salt);
-        profile.save()
+        await profile.save()
         console.log(profile);
-        res.status(200).send("We got your message!")
+        res.status(200).send("User created!")
     }catch{
         res.status(500).send("I'm sorry, we're experiencing difficulties!")
     }
 }
 
 //checks to see if username already exsists, if it does throws an 400 error
-exports.checkUsername = (req, res, next) => {
+exports.checkUsername = async (req, res, next) => {
     try{
         const inputUser = {username: req.body.username.username}
-            Account.find(inputUser, (err,user) => {
-                if(err) throw console.error(err);
-                next();
-            })
+        await Account.find(inputUser).then(function(documents){
+            console.log(documents);
+            if(documents.length !== 0){
+                throw console.error("");
+            }
+            next();
+        })
     }catch{
         res.status(400).send("I'm sorry, that username already exsists. Please use a different one.");
     }
 }
 
 //logs users in
-exports.login = (req,res) => {
+exports.login = async (req, res, next) => {
     const inputUser = {username: req.body.username.username}
-    Account.find(inputUser, (err,user) => {
-        if(err) return console.error(err);
-        console.log(inputUser);
-        console.log(user);
-        console.log(user[0].username);
-        if(bcrypt.compareSync(req.body.password, user[0].password))
-        {
-            currentUser = inputUser;
-            req.session.user = {
-                isAuthenticated: true,
-                username: req.body.username
+    let password = req.body.password.password
+    console.log("Username: " + inputUser.username)
+    console.log("Password: " + password)
+    await Account.find(inputUser).then(function(documents){
+        //console.log(documents)
+        if(documents.length === 0){
+            //console.log("username is incorrect or password is wrong or code broke!");
+            res.status(400).send("username is incorrect");
+        }else{
+            //console.log("hey i think i found your username");
+            // console.log(documents)
+            
+            if(bcrypt.compareSync(password, documents[0].password)){
+                currentUser = inputUser;
+                    req.session.documents = {
+                        isAuthenticated: true,
+                        username: req.body.username.username
+                    }
+            res.status(200).send("gotcha Account");
+            }else{
+                console.log("umm: ", documents[0].password, "\n");
+                console.log("that wasn't it");
+                res.status(400).send("Your password was invalid")
             }
-            res.redirect('/account');
-        }
-        else{
-            res.redirect('/');
         }
     })
 }

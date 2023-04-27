@@ -6,7 +6,6 @@ const expressSession = require('express-session');
 const cors = require('cors');
 var bodyParser = require('body-parser');
 
-//let salt = bcrypt.genSaltSync(10);
 
 const app = express();
 var corsOptions = {
@@ -30,9 +29,14 @@ let urlendcodedParser  = express.urlencoded({extended: false});
 
 
 //api endpoints
+// app.get('/', (req, res) => {
+//     res.send('Hello, World!');//works
+// });
+
 app.get('/', (req, res) => {
-    res.send('Hello, World!');//works
-});
+    console.log("redirecting....")
+    res.redirect('http://localhost:3000/')
+})
 
 app.post('/create', urlendcodedParser,(req, res, next)=>{
     //console.log("hit create post endpoint!")
@@ -42,12 +46,26 @@ app.post('/create', urlendcodedParser,(req, res, next)=>{
     //console.log("Email: ", req.body.email);
     //console.log("Username: ", req.body.username);
     //console.log("Password: ", req.body.password);
-    next()
+    next();
 }, routes.checkUsername, routes.createAccount);
 
+app.get('/login', (req, res) => {
+    res.redirect('http://localhost:3000/createAcc');
+});
+
 app.post("/login", urlendcodedParser, (req, res, next) => {
-    next()
+    //console.log("Future login endpoint");
+    //console.log("Username: ", req.body.username.username);
+    next();
 }, routes.login);
+
+app.post("/edit", urlendcodedParser, (req, res, next) => {
+    console.log("Future edit endpoint");
+});
+
+app.delete("/delete", urlendcodedParser, (req, res, next) => {
+    console.log("Future delete endpoint");
+});
 
 
 app.listen(3001, () => {
