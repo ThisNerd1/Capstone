@@ -1,0 +1,20 @@
+#createForm{
+    background-color: bisque;
+    width: 300px;
+    border: 12px solid green;
+    padding: 50px;
+    margin: 20px;
+}
+.label{
+    display: block;
+    font-size: larger;
+    color: black;
+    padding: 5px;
+    
+    }
+    
+    .input{
+    font-size: larger;
+    padding: 5px;
+    margin: 2px;
+    }

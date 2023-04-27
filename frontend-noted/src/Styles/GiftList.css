@@ -1,0 +1,12 @@
+#steps{
+    width: 820px;
+    padding: 10px;
+    border: 5px solid blue;
+    text-align: center;
+    margin: auto;
+    background-color: blanchedalmond;
+}
+
+#listCreation{
+    background-color: darkcyan;
+}

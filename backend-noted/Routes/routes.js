@@ -15,7 +15,7 @@ let mdb = mongoose.connection;
 mdb.on('error', console.error.bind(console, 'connection error'));
 mdb.once('open', callback => {});
 
-let accountSchema = mongoose.Schema({
+let UserSchema = mongoose.Schema({
     first_name: String,
     last_name: String,
     username: String,
@@ -23,7 +23,7 @@ let accountSchema = mongoose.Schema({
     email: String,
 }); 
 
-let Account = mongoose.model('Account_Connection', accountSchema);
+let Account = mongoose.model('Users', UserSchema);
 
 exports.login = (req,res) => {
     const inputUser = {username: req.body.username}
@@ -39,12 +39,12 @@ exports.login = (req,res) => {
                 isAuthenticated: true,
                 username: req.body.username
             }
-            avatarLink = user[0].avatarLink
-            console.log(avatarLink)
+            //avatarLink = user[0].avatarLink
+            //console.log(avatarLink)
             res.redirect('/home');
         }
         else{
-            res.redirect('/');
+            res.redirect('/gifts');
         }
     })
 }
@@ -57,11 +57,16 @@ exports.createAccount = (req, res) => {
         password: req.body.password,
         email: req.body.email
     });
-    profiles.password = bcrypt.hashSync(profiles.password, salt);
-    profiles.save((err, profiles) => {
-        if(err) return console.error(err);
-        console.log(req.body.username);
-    });
+    console.log(profiles);
     res.redirect('/');
 }
 
+exports.create = (req, res) => {
+    res.redirect("http://localhost:3000/createAcc")
+}
+
+//profiles.password = bcrypt.hashSync(profiles.password, salt);
+// profiles.save((err, profiles) => {
+//     if(err) return console.error(err);
+//     console.log(req.body.username);
+// });

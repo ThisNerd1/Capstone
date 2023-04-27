@@ -1,17 +1,26 @@
+import Styles from '../Styles/Home.css';
+import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const Home = () => {
-
-    const createAcc = () => {
-        alert("Account creation button!");
-    }
-
+  let navigate = useNavigate();
+    
     return (
         <>
         <div>
-        <div>
-            <p>loerm ipsum</p>
-        </div>
-        <button onClick={createAcc}>Create Account</button>
-        <button>Login</button>
+          <div>.</div>
+          <div id='description'>
+            <h1>Welcome to Noted</h1>
+            <p>What we're about</p>
+          </div>
+          <div>.</div>
+          <div id='model'>
+            pic, model
+          </div>
+          <div id='buttons'>
+            <button onClick={() => {navigate("/login")}}>Sign-up</button>
+            <button onClick={() => {navigate("/createAcc")}}>Create Account</button>
+          </div>
         </div>
         </>
     );

@@ -1,0 +1,17 @@
+body {
+    background: #f093fb;
+}
+
+#description{
+    width: 820px;
+    padding: 10px;
+    border: 5px solid gray;
+    text-align: center;
+    margin: auto;
+    background-color: blanchedalmond;
+}
+
+#model{
+    flex: 1;
+    margin-right: 20px;
+}
