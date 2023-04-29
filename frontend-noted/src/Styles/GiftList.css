@@ -10,3 +10,15 @@
 #listCreation{
     background-color: darkcyan;
 }
+
+#radioBtn{
+    background-color: crimson;
+}
+
+#badPreferences{
+    background-color: darkseagreen;
+}
+
+#goodPreferences{
+    background-color: hotpink;
+}

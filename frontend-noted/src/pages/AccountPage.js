@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 const AccountPage = () => {
@@ -11,9 +12,10 @@ const AccountPage = () => {
             <label className='label'>Username: </label><input id="username" name='name' type="text"  placholder="username" ></input><br />
             <label className='label'>Password: </label><input id="username" name='name' type="text" placholder="username" ></input><br />
         <button>Edit Account</button><br />
-        <button>Delete Account</button>
+        <button>Delete Account</button><br />
+        <button>Logout</button><br />
         </form>
-        <a href="">gift lists made</a><br />
+        <Link to="/gifts">gift lists made</Link><br />
         <button>New gift list</button>
         </div>
         </>

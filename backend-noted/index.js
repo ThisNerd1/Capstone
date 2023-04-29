@@ -29,33 +29,28 @@ let urlendcodedParser  = express.urlencoded({extended: false});
 
 
 //api endpoints
-// app.get('/', (req, res) => {
-//     res.send('Hello, World!');//works
-// });
+app.get('/', (req, res) => {
+    res.send('Hello, World!');
+});
 
+//home page
 app.get('/', (req, res) => {
     console.log("redirecting....")
     res.redirect('http://localhost:3000/')
 })
 
+//
 app.post('/create', urlendcodedParser,(req, res, next)=>{
-    //console.log("hit create post endpoint!")
-    //console.log("New user created!");
-    //console.log("First Name: ", req.body.fname);
-    //console.log("Last Name: ", req.body.lname);
-    //console.log("Email: ", req.body.email);
-    //console.log("Username: ", req.body.username);
-    //console.log("Password: ", req.body.password);
     next();
 }, routes.checkUsername, routes.createAccount);
 
+//Take me to account page
 app.get('/login', (req, res) => {
-    res.redirect('http://localhost:3000/createAcc');
+    res.redirect('http://localhost:3000/account');
 });
 
+//login account
 app.post("/login", urlendcodedParser, (req, res, next) => {
-    //console.log("Future login endpoint");
-    //console.log("Username: ", req.body.username.username);
     next();
 }, routes.login);
 
