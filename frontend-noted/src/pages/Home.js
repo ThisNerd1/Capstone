@@ -7,7 +7,7 @@ const Home = () => {
     
     return (
         <>
-        <div>
+        <div id='container'>
           <div>.</div>
           <div id='description'>
             <h1>Welcome to Noted</h1>
@@ -18,7 +18,7 @@ const Home = () => {
             pic, model
           </div>
           <div id='buttons'>
-            <button onClick={() => {navigate("/login")}}>Sign-ip</button>
+            <button onClick={() => {navigate("/login")}}>Sign-in</button>
             <button onClick={() => {navigate("/createAcc")}}>Create Account</button>
           </div>
         </div>

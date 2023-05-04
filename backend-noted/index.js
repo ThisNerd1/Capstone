@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const routes = require('./Routes/routes.js');
+const routing = require('./mongodb.js');
 const expressSession = require('express-session');
 const cors = require('cors');
 var bodyParser = require('body-parser');
@@ -62,6 +63,13 @@ app.delete("/delete", urlendcodedParser, (req, res, next) => {
     console.log("Future delete endpoint");
 });
 
+
+//giftList
+app.post('/nameList', urlendcodedParser,(req, res, next)=>{
+    next();
+    //console.log("hello from /nameList");
+    //console.log(req.body.giftListName.giftListName);
+}, routes.nameList);
 
 app.listen(3001, () => {
     console.log("Backend is running fine, for now..")

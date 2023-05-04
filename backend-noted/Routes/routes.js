@@ -8,9 +8,6 @@ mongoose.connect("mongodb+srv://newUser:newUser@cluster0.46qhw.mongodb.net/Noted
     useNewUrlParser: true
 });
 
-//mongoose.set('useCreateIndex', true);
-//mongoose.set('useFindAndModify', false);
-
 let mdb = mongoose.connection;
 mdb.on('error', console.error.bind(console, 'connection error'));
 mdb.once('open', callback => {});
@@ -25,7 +22,19 @@ let UserSchema = mongoose.Schema({
     collection: 'Users'
 }); 
 
+let GiftSchema = mongoose.Schema({
+    Name: String,
+    product:{
+        product_name: String,
+        product_price: String
+    },
+    For: String
+}, {
+    collection: 'GiftLists'
+}); 
+
 let Account = mongoose.model('Users', UserSchema, "Users");
+let UserList = mongoose.model('GiftLists', GiftSchema, "GiftLists");
 let salt = bcrypt.genSaltSync(10);
 let currentUser = '';
 
@@ -93,4 +102,23 @@ exports.login = async (req, res, next) => {
             }
         }
     })
+}
+
+exports.nameList = async (req, res, next) => {
+    try{
+        let gifts = new UserList({
+            Name: req.body.giftListName.giftlistName,
+            product:{
+                product_name: req.body.productName.productName,
+                product_price: req.body.productPrice.productPrice
+            },
+            For: req.body.For.For
+        });
+        console.log("name:" + req.body.giftListName.giftlistName);
+        await gifts.save()
+        console.log(gifts);
+        res.status(200).send("You named your gift list!")
+    }catch{
+        res.status(500).send("Oops, something went wrong! mm\n")
+    }
 }

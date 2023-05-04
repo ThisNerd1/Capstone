@@ -5,83 +5,67 @@ import { useNavigate } from 'react-router-dom';
 
 const GiftLists = () => {
     let navigate = useNavigate();
-    //dislikes
-    const [foodDislike, setfoodDislike] = useState('');
-    const [colorDislike, setcolorDislike] = useState('');
-    const [clothesDislike, setclothesDislike] = useState('');
-    //likes
-    const [foodLike, setfoodLike] = useState('');
-    const [colorLike, setcolorLike] = useState('');
-    const [clothesLike, setclothesLike] = useState('');
+    const [productName, setproductName] = useState('');
+    const [productPrice, setproductPrice] = useState('');
+    const [For, setFor] = useState('');
+    const [giftListName, setgiftListName] = useState('');
 
-
-    function foodDislikeChange(e){
-        const newData = {...foodDislike};
+    //showing/hiding stuff
+    const [isShown, setIsShown] = useState(false);
+    
+    function giftChange(e){
+        const newData = {...giftListName};
         newData[e.target.id] = e.target.value;
-        setfoodDislike(newData);
-        console.log(newData);
+        setgiftListName(newData);
+        //console.log(newData);
+    }
+    function productNameChange(e){
+        const newData = {...productName};
+        newData[e.target.id] = e.target.value;
+        setproductName(newData);
+        //console.log(newData);
+    }
+    function productPriceChange(e){
+        const newData = {...productPrice};
+        newData[e.target.id] = e.target.value;
+        setproductPrice(newData);
+        //console.log(newData);
+    }
+    function whoForChange(e){
+        const newData = {...For};
+        newData[e.target.id] = e.target.value;
+        setFor(newData);
+        //console.log(newData);
     }
 
-    function colorDislikeChange(e){
-        const newData = {...colorDislike};
-        newData[e.target.id] = e.target.value;
-        setcolorDislike(newData);
-        console.log(newData);
-    }
-
-    function clothesDislikeChange(e){
-        const newData = {...clothesDislike};
-        newData[e.target.id] = e.target.value;
-        setclothesDislike(newData);
-        console.log(newData);
-    }
-
-    function foodLikeChange(e){
-        const newData = {...foodLike};
-        newData[e.target.id] = e.target.value;
-        setfoodLike(newData);
-        console.log(newData);
-    }
-
-    function colorLikeChange(e){
-        const newData = {...colorLike};
-        newData[e.target.id] = e.target.value;
-        setcolorLike(newData);
-        console.log(newData);
-    }
-
-    function clothesLikeChange(e){
-        const newData = {...clothesLike};
-        newData[e.target.id] = e.target.value;
-        setclothesLike(newData);
-        console.log(newData);
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         let data = {
-            foodDislike: foodDislike,
-            colorDislike: clothesDislike,
-            clothesDislike: clothesDislike,
-            foodLike: foodLike,
-            colorLike: colorLike,
-            clothesLike: clothesLike
+            giftListName: giftListName,
+            product:{
+                product_name: productName,
+                product_price: productPrice
+            },
+            For: For
         }
         try {
             axios({
                 method: "post",
-                url: "http://localhost:3001/create",
+                url: "http://localhost:3001/nameList",
                 data: data,
                 headers: { "Content-Type": "Application/JSON" },
             })
                 .then(function (response) {
                   //handle success
+                console.log(response)
                 if(response.status === 200){
                     console.log("sucessful response");
-                    navigate("/account");
+                    navigate("/home");
                     //redirect("http://localhost:3000/account");
                 }else{
                     //redirect("http://localhost:3000/createAcc");
+                    console.log(response)
                     navigate("/gifts");
                 }
                 //console.log("It was successful");
@@ -109,34 +93,15 @@ const GiftLists = () => {
 
     return (
         <>
-        <div id='steps'>
+        {/* <div id='steps'>
             steps maybe
-        </div>
-        <form id='listCreation' onSubmit={handleSubmit}>
-            {/* <div id="radioBtn">
-            <h5>Gift list For:</h5>
-        <input type="radio" value="" name="gender" />Mom
-        <input type="radio" value="" name="gender" />Dad
-        <input type="radio" value="" name="gender" />Friend
-        <input type="radio" value="" name="gender" />Boyfriend
-        <input type="radio" value="" name="gender" />Girlfriend
-        <input type="radio" value="" name="gender" />Other
-            </div> */}
-        <div id='badPreferences'>
-        <h5>What do they <strong>NOT</strong> like:</h5>
-        <label>Food Dislike:</label><input type='text' id='foodDislike' name='foodDislike' placeholder='food dislikes' onChange={(e) => foodDislikeChange(e)}></input>
-        <label>Color Dislike:</label><input type='text' id='colorDislike' name='colorDislike' placeholder='color dislikes' onChange={(e) => colorDislikeChange(e)}/>
-        <label>Clothes Dislike:</label><input type='text' id='clothesDislike' name='clothesDislike' placeholder='clothes dislikes' onChange={(e) => clothesDislikeChange(e)}/>
-        {/* <label>One thing they hate:</label><input type='text' placeholder='I hate...'/> */}
-        </div>
-        <div id='goodPreferences'>
-        <h5>What do they like:</h5>
-        <label>Food like:</label><input type='text'  id='foodLike' name='foodLike' placeholder='food' onChange={(e) => foodLikeChange(e)}></input>
-        <label>Color like:</label><input type='text'  id='colorLike' name='colorLike' placeholder='color' onChange={(e) => colorLikeChange(e)}/>
-        <label>Clothes like:</label><input type='text'  id='clothesLike' name='clothesLike' placeholder='clothes' onChange={(e) => clothesLikeChange(e)}/>
-        {/* <label>One thing they love:</label><input type='text' placeholder='I love...'/> */}
-        </div>
-        <button>Create List</button>
+        </div> */}
+        <form onSubmit={handleSubmit}>
+            <input type='text' placeholder='name of list' id='giftlistName' name='giftlistName' onChange={(e) => giftChange(e)}/>
+            <input type='text' placeholder='name of gift' id='productName' name='productName' onChange={(e) => productNameChange(e)}/>
+            <input type='text' placeholder='price of gift' id='productPrice' name='productPrice' onChange={(e) => productPriceChange(e)}/>
+            <input type='text' placeholder='For...' id='For' name='For' onChange={(e) => whoForChange(e)} />
+        <button>Submit</button>
         </form>
         </>
     );
