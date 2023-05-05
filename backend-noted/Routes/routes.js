@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+
+
+
+
+
+
 mongoose.Promise = global.Promise;
 
 mongoose.connect("mongodb+srv://newUser:newUser@cluster0.46qhw.mongodb.net/NotedDB?retryWrites=true&w=majority", {
@@ -109,8 +115,8 @@ exports.nameList = async (req, res, next) => {
         let gifts = new UserList({
             Name: req.body.giftListName.giftlistName,
             product:{
-                product_name: req.body.productName.productName,
-                product_price: req.body.productPrice.productPrice
+                product_name: req.body.productName.product_name,
+                product_price: req.body.productPrice.product_price,
             },
             For: req.body.For.For
         });
@@ -119,6 +125,6 @@ exports.nameList = async (req, res, next) => {
         console.log(gifts);
         res.status(200).send("You named your gift list!")
     }catch{
-        res.status(500).send("Oops, something went wrong! mm\n")
+        res.status(500).send("pName", req.body.productName.product_name )//Oops, something went wrong! mm\n
     }
 }

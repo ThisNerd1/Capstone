@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const routes = require('./Routes/routes.js');
-const routing = require('./mongodb.js');
+const databaseRoute = require('./mongodatabase.js')
+//const routing = require('./mongodatabase.js');
 const expressSession = require('express-session');
 const cors = require('cors');
 var bodyParser = require('body-parser');
@@ -42,8 +43,9 @@ app.get('/', (req, res) => {
 
 //
 app.post('/create', urlendcodedParser,(req, res, next)=>{
+    console.log("creating")
     next();
-}, routes.checkUsername, routes.createAccount);
+}, databaseRoute.checkUsername, databaseRoute.createAccount);
 
 //Take me to account page
 app.get('/login', (req, res) => {
@@ -53,7 +55,7 @@ app.get('/login', (req, res) => {
 //login account
 app.post("/login", urlendcodedParser, (req, res, next) => {
     next();
-}, routes.login);
+}, databaseRoute.login);
 
 app.post("/edit", urlendcodedParser, (req, res, next) => {
     console.log("Future edit endpoint");
@@ -69,7 +71,7 @@ app.post('/nameList', urlendcodedParser,(req, res, next)=>{
     next();
     //console.log("hello from /nameList");
     //console.log(req.body.giftListName.giftListName);
-}, routes.nameList);
+}, databaseRoute.nameList);
 
 app.listen(3001, () => {
     console.log("Backend is running fine, for now..")

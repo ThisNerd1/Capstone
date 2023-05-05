@@ -70,6 +70,7 @@ const CreateAccount = () => {
                   //handle success
                 if(response.status === 200){
                     console.log("sucessful response");
+                    console.log(response)
                     navigate("/account");
                     //redirect("http://localhost:3000/account");
                 }else{
