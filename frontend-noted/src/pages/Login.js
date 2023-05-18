@@ -14,13 +14,13 @@ const Login = () => {
         const newData = {...username};
         newData[e.target.id] = e.target.value;
         setusername(newData);
-        console.log(newData);
+        //console.log(newData);
     }
     function passwordChange(e){
         const newData = {...password};
         newData[e.target.id] = e.target.value;
         setpassword(newData);
-        console.log(newData);
+        //console.log(newData);
     }   
     //Submit Function that sends to backend
     const handleSubmit = async (e) => {
@@ -29,8 +29,6 @@ const Login = () => {
             username: username,
             password: password}
         try {
-            // const response = await axios.post(url, data);
-            // console.log(response);
             axios({
                 method: "post",
                 url: "http://localhost:3001/login",
@@ -38,13 +36,10 @@ const Login = () => {
                 headers: { "Content-Type": "Application/JSON" },
             })
                 .then(function (response) {
-                  //handle success
                 if(response.status === 200){
                     console.log("sucessful response");
                     navigate("/account");
-                    //redirect("http://localhost:3000/account");
                 }else{
-                    //redirect("http://localhost:3000/createAcc");
                     navigate("/createAcc");
                 }
                 //console.log("It was successful");
@@ -57,7 +52,6 @@ const Login = () => {
                 }); 
         } catch (error) {
             if (error.response) {
-                
                 console.log(error.response);
                 console.log("server responded");
             } else if (error.request) {

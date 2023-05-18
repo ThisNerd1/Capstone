@@ -1,13 +1,12 @@
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const routes = require('./Routes/routes.js');
 const databaseRoute = require('./mongodatabase.js')
-//const routing = require('./mongodatabase.js');
 const expressSession = require('express-session');
 const cors = require('cors');
 var bodyParser = require('body-parser');
-
+const oneDay = 1000 * 60 * 60 * 24;
+var session;
 
 const app = express();
 var corsOptions = {
@@ -20,7 +19,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(expressSession({secret: "Shh", saveUninitialized: false, resave: false}))
+app.use(expressSession({
+    secret: "Shh", 
+    saveUninitialized: true, 
+    cookie: { maxAge: oneDay }, 
+    resave: true,
+}))
 //app.set('view engine', 'jsx');
 
 // app.set('views', __dirname + '/pages');
@@ -35,27 +39,35 @@ app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
-//home page
-app.get('/', (req, res) => {
-    console.log("redirecting....")
-    res.redirect('http://localhost:3000/')
-})
-
 //
 app.post('/create', urlendcodedParser,(req, res, next)=>{
-    console.log("creating")
     next();
 }, databaseRoute.checkUsername, databaseRoute.createAccount);
 
 //Take me to account page
-app.get('/login', (req, res) => {
-    res.redirect('http://localhost:3000/account');
-});
+// app.get('/login', (req, res) => {
+//     res.redirect('http://localhost:3000/account');
+// });
 
 //login account
 app.post("/login", urlendcodedParser, (req, res, next) => {
+    console.log('login Session id: \n', req.session.id);
+    //console.log('login Session cookie: \n', req.session.cookie);
     next();
-}, databaseRoute.login);
+}, databaseRoute.checkAuth, databaseRoute.login);
+
+app.post('/logout', urlendcodedParser, (req, res, next) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.log(err)
+        }else{
+            res.send("You logged out");
+            //console.log('login Session id: \n', req.session);
+            next()
+        }
+    })
+}, databaseRoute.checkAuth, databaseRoute.logout);
+
 
 app.post("/edit", urlendcodedParser, (req, res, next) => {
     console.log("Future edit endpoint");

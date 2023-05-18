@@ -8,12 +8,12 @@ const Home = () => {
     return (
         <>
         <div id='container'>
-          <div>.</div>
+          {/* <div>.</div> */}
           <div id='description'>
             <h1>Welcome to Noted</h1>
             <p>What we're about</p>
           </div>
-          <div>.</div>
+          {/* <div>.</div> */}
           <div id='model'>
             pic, model
           </div>

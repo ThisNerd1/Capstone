@@ -103,6 +103,9 @@ const GiftLists = () => {
             <input type='text' placeholder='For...' id='For' name='For' onChange={(e) => whoForChange(e)} />
         <button>Submit</button>
         </form>
+        <div>
+            
+        </div>
         </>
     );
 }
