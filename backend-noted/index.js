@@ -39,15 +39,18 @@ app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
-//
+//create a list
 app.post('/create', urlendcodedParser,(req, res, next)=>{
     next();
 }, databaseRoute.checkUsername, databaseRoute.createAccount);
 
-//Take me to account page
-// app.get('/login', (req, res) => {
-//     res.redirect('http://localhost:3000/account');
-// });
+//giftList
+app.post('/nameList', urlendcodedParser,(req, res, next)=>{
+    next();
+    //console.log("hello from /nameList");
+    //console.log(req.body.giftListName.giftListName);
+}, databaseRoute.nameList);
+
 
 //login account
 app.post("/login", urlendcodedParser, (req, res, next) => {
@@ -56,34 +59,40 @@ app.post("/login", urlendcodedParser, (req, res, next) => {
     next();
 }, databaseRoute.checkAuth, databaseRoute.login);
 
+//works
 app.post('/logout', urlendcodedParser, (req, res, next) => {
     req.session.destroy(err => {
         if (err) {
             console.log(err)
+        } 
+        if (req.session = null ){
+            res.send("You're already logged out!")
+            next()
         }else{
-            res.send("You logged out");
-            //console.log('login Session id: \n', req.session);
+            res.send("logging user out");
             next()
         }
     })
 }, databaseRoute.checkAuth, databaseRoute.logout);
 
 
-app.post("/edit", urlendcodedParser, (req, res, next) => {
-    console.log("Future edit endpoint");
-});
+//doesn't work yet
+app.post("/list/:id", urlendcodedParser, (req, res, next) => {
+    //console.log("searching...");
+    console.log("username: " + req.params.id);
+    next();
+}, databaseRoute.findLists);
+
+//doesn't work yet
+app.get("/edit", urlendcodedParser, (req, res, next) => {
+    console.log("edit endpoint");
+    next();
+}, databaseRoute.checkAuth, databaseRoute.editList);
 
 app.delete("/delete", urlendcodedParser, (req, res, next) => {
     console.log("Future delete endpoint");
 });
 
-
-//giftList
-app.post('/nameList', urlendcodedParser,(req, res, next)=>{
-    next();
-    //console.log("hello from /nameList");
-    //console.log(req.body.giftListName.giftListName);
-}, databaseRoute.nameList);
 
 app.listen(3001, () => {
     console.log("Backend is running fine, for now..")

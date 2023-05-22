@@ -38,7 +38,7 @@ const Login = () => {
                 .then(function (response) {
                 if(response.status === 200){
                     console.log("sucessful response");
-                    navigate("/account");
+                    navigate("/gifts?username=" + data.username.username);
                 }else{
                     navigate("/createAcc");
                 }

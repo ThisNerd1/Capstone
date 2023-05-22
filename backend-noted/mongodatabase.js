@@ -149,15 +149,19 @@ exports.nameList = async (req, res, next) => {
     const collectionName = 'GiftLists';
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
+    // res.status(200).send(req.body);
+    // return;
     try {
         let gifts = {
             Name: req.body.giftListName.giftlistName,
-            product: {
+            product: [{
                 product_name: req.body.product.product_name.productName,
                 product_price: req.body.product.product_price.productPrice,
-            },
-            For: req.body.For.For
+            }],
+            For: req.body.For.For,
+            user: req.body.user
         };
+        console.log("Username: " + gifts.user)
         var gift = await collection.insertOne(gifts);
         console.log(gift);
         res.status(200).send(gifts);
@@ -166,7 +170,7 @@ exports.nameList = async (req, res, next) => {
     }
 }
 
-
+//doesnt work yet
 exports.editList = async (req, res, next) => {
     const client = await MongoClient.connect(uri);
     const collectionName = 'GiftLists';
@@ -181,10 +185,65 @@ exports.editList = async (req, res, next) => {
             },
             For: req.body.For.For
         };
-        var gift = await collection.updateOne(gifts);
+        var gift = await collection.findOneAndUpdate(gifts);
         console.log(gift);
         res.send("updated list:" + gifts);
     } catch (err) {
         console.error(err);
     }
 }
+
+//doesnt work yet
+exports.deleteList = async (req, res, next) => {
+    const client = await MongoClient.connect(uri);
+    const collectionName = 'GiftLists';
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+    try {
+        let gifts = {
+            Name: req.body.giftListName.giftlistName,
+            product: {
+                product_name: req.body.product.product_name.productName,
+                product_price: req.body.product.product_price.productPrice,
+            },
+            For: req.body.For.For
+        };
+        var gift = await collection.findOneAndDelete(gifts);
+        console.log(gift);
+        res.send("deleted list:" + gifts);
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+
+
+
+
+
+//works ---change the query 
+exports.findLists = async (req, res, next) => {
+    const client = await MongoClient.connect(uri);
+    const collectionName = 'GiftLists';
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+    try {
+        // let gifts = {
+        //     Name: req.body.giftListName,
+        //     product: [{
+        //         product_name: req.body.product,
+        //         product_price: req.body.product,
+        //     }],
+        //     For: req.body.For,
+        //     user: req.body.user
+        // };
+    var allLists = await collection.find({user: req.params.id}).toArray();
+    console.log(allLists);
+    res.status(200).send(allLists);
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+
+

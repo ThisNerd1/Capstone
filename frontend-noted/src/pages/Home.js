@@ -1,26 +1,26 @@
 import Styles from '../Styles/Home.css';
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 const Home = () => {
   let navigate = useNavigate();
-    
     return (
         <>
         <div id='container'>
-          {/* <div>.</div> */}
-          <div id='description'>
-            <h1>Welcome to Noted</h1>
-            <p>What we're about</p>
-          </div>
-          {/* <div>.</div> */}
-          <div id='model'>
-            pic, model
-          </div>
-          <div id='buttons'>
-            <button onClick={() => {navigate("/login")}}>Sign-in</button>
-            <button onClick={() => {navigate("/createAcc")}}>Create Account</button>
-          </div>
+          <Card style={{ width: '18rem' }}>
+          <Card.Body>
+        <Card.Title>Welcome to Noted</Card.Title>
+        <Card.Text>
+        What we're about
+        </Card.Text>
+        <Button variant="primary" onClick={() => {navigate("/login")}}>Login</Button><br />
+        <Button variant="primary" onClick={() => {navigate("/createAcc")}}>Create Account</Button>
+      </Card.Body>
+    </Card>
         </div>
         </>
     );

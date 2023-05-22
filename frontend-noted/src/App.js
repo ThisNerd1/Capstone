@@ -8,6 +8,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import NavBar from './pages/NavBar';
 import Login from './pages/Login';
 import CreateAccount from './pages/CreateAccount';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (

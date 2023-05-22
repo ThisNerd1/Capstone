@@ -8,7 +8,7 @@ const NavBar = () => {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/account">Account</Link></li>
             <li><Link to="/gifts">Gift List</Link></li>
-            <img src='' alt='icon'></img>
+            {/* <img src='' alt='icon'></img> */}
         </ul>
         </nav>
     );
