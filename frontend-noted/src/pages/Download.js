@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 
 
-const GiftLists = () => {
+const Download = () => {
     let navigate = useNavigate();
     const [productName, setproductName] = useState('');
     const [productPrice, setproductPrice] = useState('');
@@ -16,8 +16,6 @@ const GiftLists = () => {
     const [username, setUsername] = useState('');
     const [searchParams] = useSearchParams();
     const [getLists, setGetLists] = useState('');
-    //showing/hiding stuff
-    const [isShown, setIsShown] = useState(false);
 
     useEffect(()=>{
         setUsername(searchParams.get("username"));
@@ -27,6 +25,10 @@ const GiftLists = () => {
     // useEffect(() => {
     //     console.log("GET LISTSL CHANGED:", getLists);
     // }, [getLists])
+    
+    
+    //showing/hiding stuff
+    const [isShown, setIsShown] = useState(false);
     
     function giftChange(e){
         const newData = {...giftListName};
@@ -58,6 +60,7 @@ const GiftLists = () => {
         setSearch(newData);
         //console.log(newData);
     }
+
 
     let data = {
         giftListName: giftListName,
@@ -116,7 +119,7 @@ const GiftLists = () => {
         handleList();
     },[]);
 
-    //Searching
+
     const handleList = async (e) => {
         //e.preventDefault();
         try {
@@ -160,56 +163,37 @@ const GiftLists = () => {
         return false;
     };
 
-    const TextFile = () => {
-        const element = document.createElement("a");
-        const file = new Blob([JSON.stringify(data)], {type: 'text/plain'});
-        element.href = URL.createObjectURL(file);
-        element.download = "myFile2.txt";
-        document.body.appendChild(element); // Required for this to work in FireFox
-        element.click();
-    }
+    
 
     return (
         <>
         <div id='steps'>
-            steps maybe
+            Just Click the button
         </div>
-        <div id="GiftListName"></div>
-        <h2>Create my list:</h2>
-        <form onSubmit={handleSubmit}>
+        <h2>Find my list:</h2>
+        <div>
+            {/* <form > */}
             <input type='text' placeholder='name of list' id='giftlistName' name='giftlistName' onChange={(e) => giftChange(e)}/>
             <input type='text' placeholder='name of gift' id='productName' name='productName' onChange={(e) => productNameChange(e)}/>
             <input type='text' placeholder='price of gift' id='productPrice' name='productPrice' onChange={(e) => productPriceChange(e)}/>
             <input type='text' placeholder='For...' id='For' name='For' onChange={(e) => whoForChange(e)} />
-        <button>Create</button>
-        </form>
-        <h2>Find my list:</h2>
-        <div>
             <button onClick={handleList}>Search</button>
+            {/* </form> */}
             <div>
             {   
                 getLists ? 
                 getLists?.map((getLists) => (
                     <div className="data" key={getLists.id}>
-                        <div>
-                        <h3>List Name: {getLists.Name} For: {getLists.For}</h3>
-                        </div>
-                        <div>
-                        
-                        </div>
+                        <h3>List Name: {getLists.Name}</h3>
                     </div>
                 )) : 
                 <h3>No data yet</h3> 
             }
             </div>
-            {/* <button onClick={() => {navigate("/edit")}}>Edit List</button>
-            <button onClick={() => {navigate("/delete")}}>Delete List</button>
-            <button onClick={() => {navigate("/add")}}>Add to List</button>
-            <button onClick={() => {navigate("/download")}}>Take me to Download List page</button> */}
-            <button onClick={TextFile}>Download list</button>
+            <button>Download</button>
         </div>
         </>
     );
 }
 
-export default GiftLists;
+export default Download;

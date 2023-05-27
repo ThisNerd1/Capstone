@@ -113,7 +113,7 @@ const AccountPage = () => {
         <button onClick={handleSubmit}>Logout</button><br />
         </form>
         <Link to="/gifts">gift lists made</Link><br />
-        <button>New gift list</button>
+        {/* <button>New gift list</button> */}
         </div>
         </>
     );

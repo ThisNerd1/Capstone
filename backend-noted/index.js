@@ -84,10 +84,12 @@ app.post("/list/:id", urlendcodedParser, (req, res, next) => {
 }, databaseRoute.findLists);
 
 //doesn't work yet
-app.get("/edit", urlendcodedParser, (req, res, next) => {
-    console.log("edit endpoint");
+app.post("/edit", urlendcodedParser, (req, res, next) => {
+    // console.log("edit endpoint");
+    let username = req.session.id;
+    console.log(username);
     next();
-}, databaseRoute.checkAuth, databaseRoute.editList);
+}, databaseRoute.editList);
 
 app.delete("/delete", urlendcodedParser, (req, res, next) => {
     console.log("Future delete endpoint");

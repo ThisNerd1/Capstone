@@ -4,6 +4,7 @@ const uri = "mongodb+srv://newUser:newUser@cluster0.46qhw.mongodb.net/?retryWrit
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const dbName = 'NotedDB';//serverApi: ServerApiVersion.v1
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
 let salt = bcrypt.genSaltSync(10);
 let currentUser = "";
 
@@ -177,17 +178,11 @@ exports.editList = async (req, res, next) => {
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
     try {
-        let gifts = {
-            Name: req.body.giftListName.giftlistName,
-            product: {
-                product_name: req.body.product.product_name.productName,
-                product_price: req.body.product.product_price.productPrice,
-            },
-            For: req.body.For.For
-        };
-        var gift = await collection.findOneAndUpdate(gifts);
-        console.log(gift);
-        res.send("updated list:" + gifts);
+        // let username = req.session.username;
+        // console.log(username);
+        // var gift = await collection.findOneAndUpdate();
+        // console.log(gift);
+        // res.send("updated list:" + gifts);
     } catch (err) {
         console.error(err);
     }
@@ -216,27 +211,13 @@ exports.deleteList = async (req, res, next) => {
     }
 }
 
-
-
-
-
-
-//works ---change the query 
+//works 
 exports.findLists = async (req, res, next) => {
     const client = await MongoClient.connect(uri);
     const collectionName = 'GiftLists';
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
     try {
-        // let gifts = {
-        //     Name: req.body.giftListName,
-        //     product: [{
-        //         product_name: req.body.product,
-        //         product_price: req.body.product,
-        //     }],
-        //     For: req.body.For,
-        //     user: req.body.user
-        // };
     var allLists = await collection.find({user: req.params.id}).toArray();
     console.log(allLists);
     res.status(200).send(allLists);

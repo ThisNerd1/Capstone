@@ -8,7 +8,11 @@ import NotFoundPage from './pages/NotFoundPage';
 import NavBar from './pages/NavBar';
 import Login from './pages/Login';
 import CreateAccount from './pages/CreateAccount';
+import EditList from './pages/EditList';
+import Download from './pages/Download';
 import "bootstrap/dist/css/bootstrap.min.css";
+import DeleteList from './pages/DeleteList';
+import AddTo from './pages/AddTo';
 
 function App() {
   return (
@@ -24,6 +28,10 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<Login />} />
         <Route path='/createAcc' element={<CreateAccount />} />
+        <Route path='/edit' element={<EditList />} />
+        <Route path='/delete' element={<DeleteList />} />
+        <Route path='/download' element={<Download />} />
+        <Route path='/add' element={<AddTo />} />
       </Routes>
     </div>
     </div>
