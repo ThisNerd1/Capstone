@@ -1,8 +1,7 @@
 import Styles from '../Styles/CreateAccount.css';
 import React, {useState} from 'react';
 import axios from 'axios';
-//import { render } from 'react-dom';
-//import { redirect } from 'react-router-dom';
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from 'react-router-dom';
 
 const CreateAccount = () => {
@@ -112,8 +111,8 @@ const CreateAccount = () => {
 
     return (
         <>
+        <div style={{backgroundColor: "#f4d35e"}} id='welcome'>
         <h4>Create Account</h4>
-        <div id='createForm'>
         <form onSubmit={handleSubmit}>
             <label className='label'>First Name: </label><input id="firstName" name='firstName' type="text"  placholder="First name" onChange={(e) => fnameChange(e)}></input><br /> 
             <label className='label'>Last Name: </label><input id="lastName" name='lastName' type="text"  placholder="Last Name" onChange={(e) => lnameChange(e)}></input><br />

@@ -51,6 +51,13 @@ app.post('/nameList', urlendcodedParser,(req, res, next)=>{
     //console.log(req.body.giftListName.giftListName);
 }, databaseRoute.nameList);
 
+//add
+app.get('/addNewGift', urlendcodedParser,(req, res, next)=>{
+    next();
+    //console.log("hello from /nameList");
+    //console.log(req.body.giftListName.giftListName);
+}, databaseRoute.addNewGift);
+
 
 //login account
 app.post("/login", urlendcodedParser, (req, res, next) => {
@@ -86,8 +93,9 @@ app.post("/list/:id", urlendcodedParser, (req, res, next) => {
 //doesn't work yet
 app.post("/edit", urlendcodedParser, (req, res, next) => {
     // console.log("edit endpoint");
-    let username = req.session.id;
-    console.log(username);
+    // let username = req.session.id;
+    // console.log(username);
+
     next();
 }, databaseRoute.editList);
 

@@ -2,6 +2,7 @@ import Styles from '../Styles/Login.css';
 import axios from 'axios';
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 
 const Login = () => {
@@ -66,8 +67,8 @@ const Login = () => {
 
     return (
         <>
+        <div style={{backgroundColor: "#f4d35e"}} id='welcome'>
         <h4>Login</h4>
-        <div id='loginForm'>
             <form onSubmit={handleSubmit}>
                 <label className='label'>Username: </label><input id="username" name='username' type="text"  placholder="username" onChange={(e) => usernameChange(e)}></input><br />
                 <label className='label'>Password: </label><input id="password" name='password' type="text" placholder="password" onChange={(e) => passwordChange(e)}></input><br />

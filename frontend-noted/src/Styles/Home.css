@@ -1,15 +1,10 @@
-body {
-    /* background-image: url("../Images/DN3Vlq.jpg"); */
-    background-color: antiquewhite;
-}
-
-#container{
+/* #container{
     width: 800px;
     height: 700px;
     margin: 20px auto;
     background-color: white;
     box-shadow: 0px 0px 5px 0px #363232;
-}
+} */
 
 /* #description{
     width: 600px;
@@ -24,3 +19,22 @@ body {
     flex: 1;
     margin-right: 20px;
 } */
+
+#welcome{
+    width: 1100px;
+    padding: 50px;
+    margin: 75px;
+}
+
+#data{
+    width: 1100px;
+    padding: 50px;
+    margin: 75px;
+}
+
+#btns{
+    display: inline-block;
+    text-align: center;
+    margin-left: 505px;
+    margin-right: 300px;
+}

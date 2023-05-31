@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import React, {useState} from 'react';
 import axios from 'axios';
-//import { render } from 'react-dom';
-//import { redirect } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -48,8 +48,6 @@ const AccountPage = () => {
         setpassword(newData);
         //console.log(newData);
     }    
-
-
 
 
 
@@ -99,9 +97,11 @@ const AccountPage = () => {
         return false;
     };
 
+    
+
     return (
         <>
-        <div id='createForm'>
+        <div style={{backgroundColor: "#f4d35e"}} id='welcome'>
         <form >
             {/* <label className='label'>First Name: </label><input id="name" name='name' type="text"  placholder="name" ></input><br /> 
             <label className='label'>Last Name: </label><input id="username" name='name' type="text"  placholder="username"></input><br />
@@ -110,10 +110,9 @@ const AccountPage = () => {
             <label className='label'>Password: </label><input id="username" name='name' type="text" placholder="username" ></input><br /> */}
         {/* <button>Edit Account</button><br />
         <button>Delete Account</button><br /> */}
-        <button onClick={handleSubmit}>Logout</button><br />
+        <button onClick={handleSubmit}>Logout</button>
         </form>
-        <Link to="/gifts">gift lists made</Link><br />
-        {/* <button>New gift list</button> */}
+        <Button onClick={() => {navigate("/gifts")}}>Create Gift List</Button>
         </div>
         </>
     );

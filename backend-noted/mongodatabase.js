@@ -178,10 +178,10 @@ exports.editList = async (req, res, next) => {
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
     try {
-        // let username = req.session.username;
-        // console.log(username);
-        // var gift = await collection.findOneAndUpdate();
-        // console.log(gift);
+        var gift = await collection.findOneAndUpdate({Name: "Apartment Stuff"},
+        {$set: {Name: "New Apt Stuff"}}
+        );
+        console.log(gift);
         // res.send("updated list:" + gifts);
     } catch (err) {
         console.error(err);
@@ -226,5 +226,27 @@ exports.findLists = async (req, res, next) => {
     }
 }
 
+exports.addNewGift = async (req, res, next) => {
+    const client = await MongoClient.connect(uri);
+    const collectionName = 'GiftLists';
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+    console.log("name: " + req.query.Name.Name);
+    console.log("pName: " + req.query.productName);
+    console.log("pPrice: " + req.query.productPrice);
+    res.status(200).send(req.query);
+    return ;
+    try {
+        let giftList = await collection.find({Name: req.query.Name}).toArray();
+        if(giftList.length > 0){
+            newGift = {product_name: req.query.productName, product_price: req.query.productPrice}
+            giftList[0].product.push(newGift);
+            await collection.replaceOne({Name: req.query.Name}, giftList[0]);
+            res.status(200).send(giftList[0]);
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 
